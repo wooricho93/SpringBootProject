@@ -1,9 +1,42 @@
 server:
   port: 8002
-  
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+      
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
     username: cos
     password: 1234
+    
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        # 엔티티를 생성 시 변수명 그대로 DB에 필드 생성
+        # org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy -> 엔티티 생성 시 변수명에 언더바 ex)createDate -> create_date
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      # true: 기본 넘버링 전략 / false: auto_increment(MySQL), sequence(oracle) 넘버링 전략
+      use-new-id-generator-mappings: false
+    # 콘솔 창에서 sql 구문을 띄울지 말지 결정
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+      
+blog:
+ key: blog1234
